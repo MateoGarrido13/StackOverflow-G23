@@ -1,3 +1,4 @@
 # Dataset local (el CSV público supera el límite de 100 MB de GitHub).
 # La notebook lo descarga en data/ si no está.
 /data/
+/TPE_ESPECIAL/
