@@ -8,7 +8,120 @@ Las columnas `*HaveWorkedWith` no tienen un `qname` propio en el codebook: son l
 
 ---
 
-## 1. Salario y tecnologías usadas
+## CATEDRA
+
+### a) Salario en Argentina y el SMVM
+
+Los desarrolladores que respondieron la encuesta de Argentina tienen un salario 3 veces mayor al Salario Mínimo, Vital y Móvil (SMVM).
+
+
+
+A 1/9/2026 el SMVM:  $383.000 ---x3---> $1.149.000 
+
+Es univariada: el salario de esa población contra un umbral que no está en el CSV. `Country` solo arma la población (`Argentina`, 222 filas). El SMVM es mensual y en pesos. `CompTotal` (QID22) es la compensación anual, en la moneda de `Currency` (QID21). El salario mensual comparable es `CompTotal / 12`.
+
+
+
+De las 222 filas, 142 declararon `ARS` (tabulación) `Argentine peso` y 80 `USD United States dollar`. Hay `CompTotal` en 164 (93 en pesos, 71 en dólares) y `ConvertedCompYearly` en 160 (90 y 70). En las 90 filas en pesos con ambos montos, `CompTotal / ConvertedCompYearly` da una mediana de 1.172,26 ARS por USD: es la conversión que Stack Overflow aplicó el 25 de junio de 2025. Para quien declaró dólares, el mensual en pesos es `ConvertedCompYearly × 1.172,26 / 12`. `ConvertedCompYearly` audita esa cuenta.
+
+Población del contraste: `Country = Argentina` y `CompTotal` por encima del piso. Si está en pesos, tiene que superar 10.000. Si está en dólares, tiene que superar 10. Son pisos bajos: por debajo de eso la paga anual es demasiado chica. Tras ese filtro quedan 160 filas. En Argentina, antes del piso, `CompTotal` va de 0 a 180.000.000 en pesos y de 0 a 150.000 en dólares.
+
+#### Variables
+
+
+| Variable              | Pregunta                                                                                               | No nulos       | Nulos          | Únicos                           |
+| --------------------- | ------------------------------------------------------------------------------------------------------ | -------------- | -------------- | -------------------------------- |
+| `Country`             | QID20. Dónde vive. Se retiene `Argentina`                                                              | 35.437 (72,0%) | 13.754 (28,0%) | 177                              |
+| `Currency`            | QID21. Moneda del día a día. En Argentina: pesos o dólares                                             | 35.437 (72,0%) | 13.754 (28,0%) | 142                              |
+| `CompTotal`           | QID22. Compensación anual total, en esa moneda, antes de impuestos                                     | 24.866 (50,5%) | 24.325 (49,5%) | 2.678                            |
+| `ConvertedCompYearly` | Calculada desde QID22 y QID21 el 25 de junio de 2025. Salario anual en USD. No está en el cuestionario | 23.947 (48,7%) | 25.244 (51,3%) | 6.237 enteros, de 1 a 50.000.000 |
+
+
+Analisi Univariado sobre CompTotal en ARS.
+
+
+
+### b) Experiencia profesional y confianza en la precisión de la IA
+
+Los años de experiencia profesional influyen en la confianza en la precisión de las herramientas de IA.
+
+Es bivariada: `WorkExp` y `AIAcc`. No entran `AISelect` ni `AIAgents` (hipótesis 1 y 4) ni `YearsCode` (QID13).
+
+Población: dato en las dos. Son 30.780 filas (62,6%).
+
+#### Variables
+
+
+| Variable  | Pregunta                                                                                                      | No nulos       | Nulos          | Únicos                 |
+| --------- | ------------------------------------------------------------------------------------------------------------- | -------------- | -------------- | ---------------------- |
+| `WorkExp` | QID14. Años de experiencia profesional, redondeados. Si la respuesta es 0, la consigna pide dejarla en blanco | 42.893 (87,2%) | 6.298 (12,8%)  | 72 enteros, de 1 a 100 |
+| `AIAcc`   | QID80. Cuánto confía en la precisión de la salida de las herramientas de IA en su flujo de desarrollo         | 33.297 (67,7%) | 15.894 (32,3%) | 5                      |
+
+
+
+
+#### Valores únicos
+
+`AIAcc`: Highly trust; Somewhat trust; Neither trust nor distrust; Somewhat distrust; Highly distrust.
+
+### c) Aspectos del trabajo actual y cambio de rol o de carrera
+
+Están los distintos niveles de satisfacción en los distintos aspectos del trabajo actual relacionados a la consideración de un cambio de rol o de carrera.
+
+Es multivariada. Los aspectos son el ranking `JobSatPoints_*` (QID27): 15 columnas, un puesto por ítem, 1 = el que más aporta a la satisfacción. No hay `JobSatPoints_12`. El número de la columna no es el puesto. Quien responde el ranking llena las 15 juntas. `JobSatPoints_15_TEXT` es el texto de Other (664 filas, 1,3%) y no entra.
+
+`NewRole` (QID29) es la consideración o el paso a otro rol o carrera. `JobSat` (QID26) es un único puntaje de 0 a 10 del rol, no un nivel por aspecto, y no entra.
+
+Población: las 15 columnas de puesto y `NewRole` con dato. Son 24.729 filas (50,3%). Hay 214 filas con el ranking completo y `NewRole` vacío.
+
+#### Variables
+
+
+| Variable                                                                                                   | Pregunta                                                                                                      | No nulos       | Nulos          | Únicos                 |
+| ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | -------------- | -------------- | ---------------------- |
+| `JobSatPoints_1`, `_2`, `_3`, `_4`, `_5`, `_6`, `_7`, `_8`, `_9`, `_10`, `_11`, `_13`, `_14`, `_15`, `_16` | QID27. Puesto de cada aspecto del trabajo actual según cuánto aporta a la satisfacción. 1 = el que más aporta | 24.943 (50,7%) | 24.248 (49,3%) | 15: los puestos 1 a 15 |
+| `NewRole`                                                                                                  | QID29. Si consideró o hizo un cambio de carrera o de rol en el último año                                     | 35.527 (72,2%) | 13.664 (27,8%) | 5                      |
+
+
+
+
+#### Aspectos (`JobSatPoints_*`)
+
+
+| Variable          | Ítem                                                        |
+| ----------------- | ----------------------------------------------------------- |
+| `JobSatPoints_1`  | Control over the level of quality in projects               |
+| `JobSatPoints_2`  | Autonomy and trust to manage your own tasks                 |
+| `JobSatPoints_16` | You like your manager                                       |
+| `JobSatPoints_3`  | Collaboration and support from a team                       |
+| `JobSatPoints_4`  | Expert mentors                                              |
+| `JobSatPoints_5`  | Opportunities to mentor and lead junior-level coworkers     |
+| `JobSatPoints_6`  | Developing specialized expertise                            |
+| `JobSatPoints_7`  | Solving real-world problems                                 |
+| `JobSatPoints_8`  | Job stability and career growth with a single employer      |
+| `JobSatPoints_9`  | Innovation through solving challenging and complex problems |
+| `JobSatPoints_10` | Working with new technologies and tools                     |
+| `JobSatPoints_11` | Competitive pay and benefits                                |
+| `JobSatPoints_13` | Recognition from peers for your work                        |
+| `JobSatPoints_14` | Recognition from leadership for your work                   |
+| `JobSatPoints_15` | Other                                                       |
+
+
+
+
+#### Valores únicos
+
+`NewRole`: I have strongly considered changing my career and/or the industry I work in; I have somewhat considered changing my career and/or the industry I work in; I have transitioned into a new career and/or industry voluntarily; I have transitioned into a new career and/or industry involuntarily; I have neither consider or transitioned into a new career or industry.
+
+---
+
+
+
+## NUESTRAS
+
+
+
+### 1. Salario y tecnologías usadas
 
 Entre quienes declaran compensación anual y están empleados o son contractors, el salario en dólares (`ConvertedCompYearly`) se asocia con las tecnologías usadas el último año (las columnas `*HaveWorkedWith`, partidas por tecnología) después de tener en cuenta los años de experiencia profesional (`WorkExp`), el rol (`DevType`) y el país (`Country`). La frecuencia de uso de IA en el desarrollo (`AISelect`) se incluye para evaluar si esa práctica se asocia con distinta paga una vez iguales esos factores. La expectativa es que el salario siga variando según la tecnología, y que la diferencia ligada al uso de IA se reduzca al ajustar por experiencia, rol y país.
 
@@ -16,7 +129,7 @@ Población de la hipótesis: `Employment` en `Employed` o `Independent contracto
 
 `CompTotal` (QID22) no entra: es el mismo salario en moneda local.
 
-### Variables
+#### Variables
 
 
 | Variable              | Pregunta                                                                                                      | No nulos       | Únicos                               |
@@ -31,7 +144,7 @@ Población de la hipótesis: `Employment` en `Employed` o `Independent contracto
 
  **ACLARACION**: Vamos a tener que ver la validez  de estos valores: 100 anos de experiencia??? 50M USD??, datos provenuentes de la encuesta.
 
-### Tecnologías (`*HaveWorkedWith`)
+#### Tecnologías (`*HaveWorkedWith`)
 
 Cada celda es una lista separada por `;`. “No nulos” = celda con al menos un ítem. “Únicos (celda)” = combinaciones distintas. “Ítems” = opciones del cuestionario al partir por `;`.
 
@@ -67,7 +180,7 @@ Cada celda es una lista separada por `;`. “No nulos” = celda con al menos un
 
 Ítems de `AIModelsHaveWorkedWith`: openAI GPT (chatbot models), Anthropic: Claude Sonnet, Gemini (Flash general purpose models), openAI Reasoning models, openAI Image generating models, Gemini (Pro Reasoning models), DeepSeek (R- Reasoning models), Meta Llama (all models), DeepSeek (V- General purpose models), X Grok models, Mistral AI models, Perplexity Sonar models, Alibaba Cloud Qwen models, Microsoft Phi-4 models, Amazon Titan models, Cohere: Command A, Reka (Flash 3 or other Reka models).
 
-### Valores únicos de las covariables cerradas
+#### Valores únicos de las covariables cerradas
 
 `DevType`: Developer, full-stack; Developer, back-end; Student; Architect, software or solutions; Developer, front-end; Developer, desktop or enterprise applications; Other (please specify):; Developer, mobile; Developer, embedded applications or devices; Academic researcher; Engineering manager; DevOps engineer or professional; Data engineer; AI/ML engineer; Data scientist; Senior executive (C-suite, VP, etc.); System administrator; Retired; Developer, game or graphics; Cloud infrastructure engineer; Founder, technology or otherwise; Cybersecurity or InfoSec professional; Data or business analyst; Developer, QA or test; Project manager; Applied scientist; Support engineer or analyst; Developer, AI apps or physical AI; Product manager; Database administrator or engineer; UX, Research Ops or UI design professional; Financial analyst or engineer.
 
@@ -79,7 +192,9 @@ Cada celda es una lista separada por `;`. “No nulos” = celda con al menos un
 
 ---
 
-## 2. Perfil conjunto de paga, experiencia, herramientas y criterios de adopción
+
+
+### 2. Perfil conjunto de paga, experiencia, herramientas y criterios de adopción
 
 Entre empleados o contractors que rankearon criterios de adopción en el contexto laboral, la variación conjunta de la experiencia profesional, el salario anual en dólares, la cantidad de herramientas usadas en el trabajo y en proyectos personales, la satisfacción con el rol y la prioridad dada a la integración de IA y al código personalizable se resume en más de un componente. La experiencia y el salario comparten un eje. La amplitud de herramientas forma otro. La satisfacción y esas dos prioridades de adopción no se reducen al eje de la paga: priorizar la IA, o un código personalizable, al elegir una tecnología no equivale a cobrar más ni a estar más satisfecho.
 
@@ -87,7 +202,7 @@ Población: `Employment` en `Employed` o `Independent contractor, freelancer, or
 
 Antes del PCA: recortar extremos de `ConvertedCompYearly`, `ToolCountWork` y `ToolCountPersonal`, y estandarizar. El puesto de `TechEndorse_1` y `TechEndorse_4` se invierte a una prioridad (`11 - puesto`), porque 1 es lo que más atrae. No entran `YearsCode` (QID13; repite la antigüedad de `WorkExp`) ni `CompTotal` (QID22; mismo salario en moneda local) ni el resto de `TechEndorse_*`.
 
-### Variables del PCA
+#### Variables del PCA
 
 
 | Variable              | Pregunta                                                                                                  | No nulos       | Únicos                                            |
@@ -103,7 +218,7 @@ Antes del PCA: recortar extremos de `ConvertedCompYearly`, `ToolCountWork` y `To
 
 `TechEndorse_1` y `TechEndorse_4` comparten el mismo 26,9% de `NA` (13.216 filas): quien salta el ranking deja las dos vacías de puesto. Los puestos 11 a 14 sobran respecto de los 10 ítems del cuestionario.
 
-### Filtros
+#### Filtros
 
 
 | Variable           | Pregunta                                                                         | No nulos       | Únicos                                                                                                                 |
@@ -114,7 +229,9 @@ Antes del PCA: recortar extremos de `ConvertedCompYearly`, `ToolCountWork` y `To
 
 ---
 
-## 3. Paga en USD y país, con la misma formación y los mismos conocimientos
+
+
+### 3. Paga en USD y país, con la misma formación y los mismos conocimientos
 
 Entre desarrolladores de profesión que están empleados o son contractors, el salario anual en dólares (`ConvertedCompYearly`) sigue asociado al país de residencia (`Country`) después de igualar la formación formal (`EdLevel`) y los años programando, incluido el estudio (`YearsCode`). La comparación no usa el monto en moneda local: `CompTotal` (QID22) y `Currency` (QID21) solo construyen `ConvertedCompYearly` y no entran como predictores. `Currency` tiene el mismo patrón de nulos que `Country` (13.754 filas, 28,0%).
 
@@ -124,7 +241,7 @@ Población: `MainBranch` = `I am a developer by profession`, `Employment` en `Em
 
 `WorkExp` (QID14) no entra: mide antigüedad laboral, no formación ni años programando, y ya se usa en las hipótesis 1 y 2.
 
-### Variables
+#### Variables
 
 
 | Variable              | Pregunta                                                                                                   | No nulos       | Nulos          | Únicos                           |
@@ -135,7 +252,9 @@ Población: `MainBranch` = `I am a developer by profession`, `Employment` en `Em
 | `YearsCode`           | QID13. Años programando en total, incluida la formación. El 0 se deja en blanco                            | 43.042 (87,5%) | 6.149 (12,5%)  | 78 enteros, de 1 a 100           |
 
 
-### Filtros
+
+
+#### Filtros
 
 
 | Variable     | Pregunta                                                                                                 | No nulos       | Nulos      | Únicos |
@@ -144,7 +263,9 @@ Población: `MainBranch` = `I am a developer by profession`, `Employment` en `Em
 | `Employment` | QID7. Situación laboral. Se retienen `Employed` e `Independent contractor, freelancer, or self-employed` | 48.339 (98,3%) | 852 (1,7%) | 6      |
 
 
-### Valores únicos
+
+
+#### Valores únicos
 
 `EdLevel`: Bachelor’s degree (B.A., B.S., B.Eng., etc.); Master’s degree (M.A., M.S., M.Eng., MBA, etc.); Some college/university study without earning a degree; Secondary school (e.g. American high school, German Realschule or Gymnasium, etc.); Professional degree (JD, MD, Ph.D, Ed.D, etc.); Associate degree (A.A., A.S., etc.); Other (please specify):; Primary/elementary school.
 
@@ -156,7 +277,9 @@ Población: `MainBranch` = `I am a developer by profession`, `Employment` en `Em
 
 ---
 
-## 4. Uso de herramientas de IA y uso de agentes
+
+
+### 4. Uso de herramientas de IA y uso de agentes
 
 Entre desarrolladores de profesión que están empleados o son contractors y responden las dos preguntas, usar herramientas de IA en el desarrollo (`AISelect`) no implica usar agentes en el trabajo (`AIAgents`). La asociación es bivariada: no entran salario, país, formación ni el resto del bloque de IA. La hipótesis 1 ya usa `AISelect` como covariable de la paga y no incluye `AIAgents`; esta sección no se mezcla con esa.
 
@@ -164,7 +287,7 @@ La expectativa es que la frecuencia de herramientas y la de agentes estén asoci
 
 Población: `MainBranch` = `I am a developer by profession`, `Employment` en `Employed` o `Independent contractor, freelancer, or self-employed`, y dato en `AISelect` y `AIAgents`. Son 23.130 filas (47,0%). Quien no usa herramientas de IA igual puede responder `AIAgents`: el nulo no es un salto obligatorio de “no uso IA” a “sin dato de agentes”.
 
-### Variables
+#### Variables
 
 
 | Variable   | Pregunta                                                                           | No nulos       | Nulos          | Únicos |
@@ -173,7 +296,9 @@ Población: `MainBranch` = `I am a developer by profession`, `Employment` en `Em
 | `AIAgents` | QID85. Si usa agentes de IA en el trabajo, y con qué frecuencia                    | 31.919 (64,9%) | 17.272 (35,1%) | 6      |
 
 
-### Filtros
+
+
+#### Filtros
 
 
 | Variable     | Pregunta                                                                                                 | No nulos       | Nulos      | Únicos |
@@ -184,7 +309,7 @@ Población: `MainBranch` = `I am a developer by profession`, `Employment` en `Em
 
 `Probablemente un free-lancer tienda a adoptar agenter por no tener la estructura de una empresa para tareas de diseno, de producto,  implemntacion,etc.`
 
-### Valores únicos
+#### Valores únicos
 
 `AISelect`: Yes, I use AI tools daily; Yes, I use AI tools weekly; Yes, I use AI tools monthly or infrequently; No, but I plan to soon; No, and I don't plan to.
 
