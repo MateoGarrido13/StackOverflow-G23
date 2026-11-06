@@ -12,15 +12,23 @@ Las columnas `*HaveWorkedWith` no tienen un `qname` propio en el codebook: son l
 
 ### a) Salario en Argentina y el SMVM
 
-Los desarrolladores que respondieron la encuesta de Argentina tienen un salario 3 veces mayor al Salario Mínimo, Vital y Móvil (SMVM).
+ Los desarrolladores que respondieron la encuesta de Argentina tienen un salario 3 veces mayor al Salario Mínimo, Vital y Móvil (SMVM).
+
+H0: u(salario) >=  1.149.000
+
+H1: u(salario) < 1.149.000
+
+Se emplearia un test-t si se verificase normalidad(mediante Shapiro-Wilks) , en este caso no hay otro grupo para compararr por lo tanto la homocedasticidad no sera un supuesto a chequear pero si:  
+  
+* forma simetrica(?)
+
+- vamos a revisar valores sobre salario, construit salario mensual
 
 
 
 A 1/9/2026 el SMVM:  $383.000 ---x3---> $1.149.000 
 
 Es univariada: el salario de esa población contra un umbral que no está en el CSV. `Country` solo arma la población (`Argentina`, 222 filas). El SMVM es mensual y en pesos. `CompTotal` (QID22) es la compensación anual, en la moneda de `Currency` (QID21). El salario mensual comparable es `CompTotal / 12`.
-
-
 
 De las 222 filas, 142 declararon `ARS` (tabulación) `Argentine peso` y 80 `USD United States dollar`. Hay `CompTotal` en 164 (93 en pesos, 71 en dólares) y `ConvertedCompYearly` en 160 (90 y 70). En las 90 filas en pesos con ambos montos, `CompTotal / ConvertedCompYearly` da una mediana de 1.172,26 ARS por USD: es la conversión que Stack Overflow aplicó el 25 de junio de 2025. Para quien declaró dólares, el mensual en pesos es `ConvertedCompYearly × 1.172,26 / 12`. `ConvertedCompYearly` audita esa cuenta.
 
@@ -38,8 +46,6 @@ Población del contraste: `Country = Argentina` y `CompTotal` por encima del pis
 
 
 Analisi Univariado sobre CompTotal en ARS.
-
-
 
 ### b) Experiencia profesional y confianza en la precisión de la IA
 
@@ -188,7 +194,7 @@ Cada celda es una lista separada por `;`. “No nulos” = celda con al menos un
 
 `Employment`: Employed; Independent contractor, freelancer, or self-employed; Student; Not employed; Retired; I prefer not to say.
 
-`Country` (177): Afghanistan, Albania, Algeria, Andorra, Angola, Antigua and Barbuda, Argentina, Armenia, Australia, Austria, Azerbaijan, Bahrain, Bangladesh, Barbados, Belarus, Belgium, Belize, Benin, Bhutan, Bolivia, Bosnia and Herzegovina, Botswana, Brazil, Brunei Darussalam, Bulgaria, Burundi, Cambodia, Cameroon, Canada, Cape Verde, Chile, China, Colombia, Congo, Republic of the..., Costa Rica, Croatia, Cuba, Cyprus, Czech Republic, Côte d'Ivoire, Democratic People's Republic of Korea, Democratic Republic of the Congo, Denmark, Djibouti, Dominican Republic, Ecuador, Egypt, El Salvador, Estonia, Ethiopia, Fiji, Finland, France, Gabon, Gambia, Georgia, Germany, Ghana, Greece, Guatemala, Guinea, Guinea-Bissau, Guyana, Haiti, Honduras, Hong Kong (S.A.R.), Hungary, Iceland, India, Indonesia, Iran, Islamic Republic of..., Iraq, Ireland, Isle of Man, Israel, Italy, Jamaica, Japan, Jordan, Kazakhstan, Kenya, Kosovo, Kuwait, Kyrgyzstan, Lao People's Democratic Republic, Latvia, Lebanon, Lesotho, Libyan Arab Jamahiriya, Lithuania, Luxembourg, Madagascar, Malawi, Malaysia, Maldives, Mali, Malta, Mauritania, Mauritius, Mexico, Micronesia, Federated States of..., Moldova, Mongolia, Montenegro, Morocco, Mozambique, Myanmar, Namibia, Nepal, Netherlands, New Zealand, Nicaragua, Niger, Nigeria, Nomadic, North Korea, Norway, Oman, Pakistan, Palau, Palestine, Panama, Papua New Guinea, Paraguay, Peru, Philippines, Poland, Portugal, Qatar, Republic of Korea, Republic of Moldova, Republic of North Macedonia, Romania, Russian Federation, Rwanda, Saint Lucia, San Marino, Saudi Arabia, Senegal, Serbia, Sierra Leone, Singapore, Slovakia, Slovenia, Somalia, South Africa, South Korea, Spain, Sri Lanka, Sudan, Suriname, Swaziland, Sweden, Switzerland, Syrian Arab Republic, Taiwan, Tajikistan, Thailand, Timor-Leste, Togo, Trinidad and Tobago, Tunisia, Turkey, Turkmenistan, Uganda, Ukraine, United Arab Emirates, United Kingdom of Great Britain and Northern Ireland, United Republic of Tanzania, United States of America, Uruguay, Uzbekistan, Venezuela, Bolivarian Republic of..., Viet Nam, Yemen, Zambia, Zimbabwe.
+`Country` (177): 
 
 ---
 
