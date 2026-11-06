@@ -320,3 +320,84 @@ Población: `MainBranch` = `I am a developer by profession`, `Employment` en `Em
 `AISelect`: Yes, I use AI tools daily; Yes, I use AI tools weekly; Yes, I use AI tools monthly or infrequently; No, but I plan to soon; No, and I don't plan to.
 
 `AIAgents`: Yes, I use AI agents at work daily; Yes, I use AI agents at work weekly; Yes, I use AI agents at work monthly or infrequently; No, I use AI exclusively in copilot/autocomplete mode; No, but I plan to; No, and I don't plan to.
+
+---
+
+## NUESTRAS NUEVAS
+
+### 1. Ingresos y dispersión salarial
+
+Entre los desarrolladores de profesión empleados o independientes que informan su compensación anual, el percentil 90 de los ingresos convertidos a dólares es más del doble de la mediana. Esta hipótesis describe la dispersión de los ingresos dentro de la población encuestada; no compara grupos ni busca explicar sus causas. Se considera un análisis univariado porque la única variable cuyo comportamiento se analiza es `ConvertedCompYearly`.
+
+La medida de interés es la razón entre el percentil 90 y la mediana de `ConvertedCompYearly`. Si esta razón supera 2, el ingreso del percentil 90 es más del doble que el ingreso mediano. Se incluirán salarios positivos y no nulos, y se informarán también la mediana, el percentil 90 y la distribución para dar contexto a esa razón.
+
+#### Variables
+
+| Variable | Pregunta | Uso |
+| --- | --- | --- |
+| `ConvertedCompYearly` | Compensación anual total convertida a USD. No está en el cuestionario; se calcula a partir de `CompTotal` y `Currency` | Única variable de análisis. Se resume mediante mediana y percentil 90. |
+| `MainBranch` | QID3. Si escribe código y en qué condición | Filtro: retener `I am a developer by profession`. |
+| `Employment` | QID7. Situación laboral | Filtro: retener `Employed` e `Independent contractor, freelancer, or self-employed`. |
+
+#### Hipótesis
+
+- **H0:** el percentil 90 de `ConvertedCompYearly` es como máximo dos veces la mediana: P90 / mediana <= 2.
+- **H1:** el percentil 90 de `ConvertedCompYearly` es más de dos veces la mediana: P90 / mediana > 2.
+
+El umbral de 2 es una definición operativa de “marcada dispersión”, no un estándar universal. La inferencia se limita a quienes respondieron la encuesta y cumplen los filtros; la muestra no necesariamente representa a todos los desarrolladores.
+
+---
+
+### 2. Uso de herramientas de IA y percepción de amenaza laboral
+
+Entre desarrolladores de profesión empleados o independientes que respondieron ambas preguntas, la frecuencia de uso de herramientas de IA en el proceso de desarrollo se asocia con la percepción de si la IA representa una amenaza para su empleo actual. Es una hipótesis bivariada: relaciona dos respuestas categóricas sin incluir salario, país, educación u otras variables como explicaciones adicionales.
+
+La pregunta tiene interés social porque relaciona la adopción cotidiana de IA con la preocupación por la seguridad laboral ante cambios tecnológicos. No se presupone que usar más IA aumente o reduzca esa preocupación: la asociación puede ir en cualquier dirección, y la encuesta no permite concluir que el uso cause una percepción particular.
+
+`AISelect` distingue el uso diario, semanal o mensual/infrecuente, además de dos respuestas de no uso: no usarla pero planear hacerlo y no usarla ni planearlo. `AIThreat` pregunta directamente si la persona considera que la IA es una amenaza para su empleo actual y ofrece las respuestas `Yes`, `No` e `I'm not sure`. Se mantienen estas categorías originales, incluida la incertidumbre.
+
+#### Variables
+
+| Variable | Pregunta | Uso |
+| --- | --- | --- |
+| `AISelect` | QID78. Si usa herramientas de IA en su proceso de desarrollo y con qué frecuencia | Primera variable de la asociación; frecuencia de uso y postura de quienes no las usan. |
+| `AIThreat` | QID28. Si la IA representa una amenaza para su empleo actual | Segunda variable de la asociación; percepción de amenaza laboral: `Yes`, `No` o `I'm not sure`. |
+| `MainBranch` | QID3. Si escribe código y en qué condición | Filtro: retener `I am a developer by profession`. |
+| `Employment` | QID7. Situación laboral | Filtro: retener `Employed` e `Independent contractor, freelancer, or self-employed`. |
+
+Población: desarrolladores de profesión empleados o independientes con respuestas en `AISelect` y `AIThreat`. La tabulación del CSV da 24.287 casos completos (49,4% de la muestra).
+
+#### Hipótesis
+
+- **H0:** `AISelect` y `AIThreat` son independientes en la población analizada; no hay asociación entre la frecuencia de uso de herramientas de IA y la percepción de amenaza laboral.
+- **H1:** `AISelect` y `AIThreat` no son independientes; existe asociación entre la frecuencia de uso de herramientas de IA y la percepción de amenaza laboral.
+
+Se puede evaluar con una tabla de contingencia y una prueba chi-cuadrado de independencia, informando también el tamaño de la asociación, por ejemplo V de Cramér. Si las frecuencias esperadas de algunas celdas son demasiado bajas, habrá que revisar la idoneidad de la prueba sin agrupar categorías automáticamente. Una asociación estadística no implica causalidad.
+
+---
+
+### 3. Región e ingresos, considerando educación y años programando
+
+Entre desarrolladores de profesión empleados o independientes que informan ingresos, nivel educativo, país y años programando, la compensación anual en USD se asocia con vivir en América Latina o en el resto del mundo, aun al considerar diferencias en educación formal y años programando. La pregunta es si los salarios reportados difieren entre regiones al comparar personas con niveles educativos y años programando similares. Es multivariada porque relaciona el ingreso con la región y considera además dos variables de ajuste.
+
+`Country` se recodifica en dos grupos: América Latina y resto del mundo. La agrupación de América Latina sigue la definición operacional ya documentada en esta hipótesis: los países de habla mayoritaria española o portuguesa de América incluidos en la encuesta, más Haití. `EdLevel` y `YearsCode` se incluyen para ajustar la comparación por nivel educativo formal y años totales programando, respectivamente. La encuesta es observacional, por lo que un resultado describe asociación y no demuestra que la región cause diferencias salariales.
+
+#### Variables
+
+| Variable | Pregunta | Uso |
+| --- | --- | --- |
+| `ConvertedCompYearly` | Compensación anual convertida a USD a partir de `CompTotal` y `Currency` | Variable resultado. Se analizan valores positivos y no nulos; se puede modelar su logaritmo por la asimetría de los ingresos. |
+| `Country` | QID20. Dónde vive | Predictor principal; se recodifica como `América Latina` o `resto del mundo`. |
+| `EdLevel` | QID9. Máximo nivel de educación formal | Variable de ajuste; permite considerar diferencias en educación. |
+| `YearsCode` | QID13. Años programando en total, incluida la formación | Variable de ajuste; permite considerar diferencias en trayectoria de programación. |
+| `MainBranch` | QID3. Si escribe código y en qué condición | Filtro: retener `I am a developer by profession`. |
+| `Employment` | QID7. Situación laboral | Filtro: retener `Employed` e `Independent contractor, freelancer, or self-employed`. |
+
+Población: respuestas con valores válidos en las variables de análisis y que cumplen ambos filtros. La tabulación previa estima 19.399 casos completos: 1.192 de América Latina y 18.207 del resto del mundo.
+
+#### Hipótesis
+
+- **H0:** al considerar `EdLevel` y `YearsCode`, no hay asociación entre la región de residencia y `ConvertedCompYearly`; el coeficiente de `Country` en el modelo es 0.
+- **H1:** al considerar `EdLevel` y `YearsCode`, sí hay asociación entre la región de residencia y `ConvertedCompYearly`; el coeficiente de `Country` en el modelo es distinto de 0.
+
+Puede evaluarse con una regresión del logaritmo de `ConvertedCompYearly`, usando la región como predictor principal y `EdLevel` y `YearsCode` como variables de ajuste. La conversión a USD no ajusta por costo de vida ni poder adquisitivo; esta limitación debe tenerse en cuenta al interpretar la comparación entre regiones.
