@@ -19,12 +19,10 @@ H0: u(salario) >=  1.149.000
 H1: u(salario) < 1.149.000
 
 Se emplearia un test-t si se verificase normalidad(mediante Shapiro-Wilks) , en este caso no hay otro grupo para compararr por lo tanto la homocedasticidad no sera un supuesto a chequear pero si:  
-  
-* forma simetrica(?)
+
+- forma simetrica(?)
 
 - vamos a revisar valores sobre salario, construit salario mensual
-
-
 
 A 1/9/2026 el SMVM:  $383.000 ---x3---> $1.149.000 
 
@@ -323,7 +321,11 @@ Población: `MainBranch` = `I am a developer by profession`, `Employment` en `Em
 
 ---
 
+
+
 ## NUESTRAS NUEVAS
+
+
 
 ### 1. Ingresos y dispersión salarial
 
@@ -333,11 +335,15 @@ La medida de interés es la razón entre el percentil 90 y la mediana de `Conver
 
 #### Variables
 
-| Variable | Pregunta | Uso |
-| --- | --- | --- |
-| `ConvertedCompYearly` | Compensación anual total convertida a USD. No está en el cuestionario; se calcula a partir de `CompTotal` y `Currency` | Única variable de análisis. Se resume mediante mediana y percentil 90. |
-| `MainBranch` | QID3. Si escribe código y en qué condición | Filtro: retener `I am a developer by profession`. |
-| `Employment` | QID7. Situación laboral | Filtro: retener `Employed` e `Independent contractor, freelancer, or self-employed`. |
+
+| Variable              | Pregunta                                                                                                               | Uso                                                                                  |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| `ConvertedCompYearly` | Compensación anual total convertida a USD. No está en el cuestionario; se calcula a partir de `CompTotal` y `Currency` | Única variable de análisis. Se resume mediante mediana y percentil 90.               |
+| `MainBranch`          | QID3. Si escribe código y en qué condición                                                                             | Filtro: retener `I am a developer by profession`.                                    |
+| `Employment`          | QID7. Situación laboral                                                                                                | Filtro: retener `Employed` e `Independent contractor, freelancer, or self-employed`. |
+
+
+
 
 #### Hipótesis
 
@@ -347,6 +353,8 @@ La medida de interés es la razón entre el percentil 90 y la mediana de `Conver
 El umbral de 2 es una definición operativa de “marcada dispersión”, no un estándar universal. La inferencia se limita a quienes respondieron la encuesta y cumplen los filtros; la muestra no necesariamente representa a todos los desarrolladores.
 
 ---
+
+
 
 ### 2. Tamaño del empleador y modalidad de trabajo
 
@@ -358,10 +366,12 @@ La pregunta tiene interés social porque la flexibilidad para trabajar de forma 
 
 #### Variables
 
-| Variable | Pregunta | Uso |
-| --- | --- | --- |
-| `OrgSize` | QID16. Tamaño del empleador | Primera variable de la asociación; tamaño declarado de la organización, incluida la categoría de trabajador independiente. |
-| `RemoteWork` | QID24. Situación actual de trabajo (remota, híbrida o presencial) | Segunda variable de la asociación; modalidad de trabajo declarada. |
+
+| Variable     | Pregunta                                                          | Uso                                                                                                                        |
+| ------------ | ----------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `OrgSize`    | QID16. Tamaño del empleador                                       | Primera variable de la asociación; tamaño declarado de la organización, incluida la categoría de trabajador independiente. |
+| `RemoteWork` | QID24. Situación actual de trabajo (remota, híbrida o presencial) | Segunda variable de la asociación; modalidad de trabajo declarada.                                                         |
+
 
 Población: personas con respuestas válidas en `OrgSize` y `RemoteWork`. La tabulación del CSV da 33.728 casos completos (68,6% de la muestra).
 
@@ -374,6 +384,8 @@ Se puede evaluar con una tabla de contingencia y una prueba chi-cuadrado de inde
 
 ---
 
+
+
 ### 3. Región e ingresos, considerando educación y años programando
 
 Entre desarrolladores de profesión empleados o independientes que informan ingresos, nivel educativo, país y años programando, la compensación anual en USD se asocia con vivir en América Latina o en el resto del mundo, aun al considerar diferencias en educación formal y años programando. La pregunta es si los salarios reportados difieren entre regiones al comparar personas con niveles educativos y años programando similares. Es multivariada porque relaciona el ingreso con la región y considera además dos variables de ajuste.
@@ -382,14 +394,16 @@ Entre desarrolladores de profesión empleados o independientes que informan ingr
 
 #### Variables
 
-| Variable | Pregunta | Uso |
-| --- | --- | --- |
+
+| Variable              | Pregunta                                                                 | Uso                                                                                                                           |
+| --------------------- | ------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
 | `ConvertedCompYearly` | Compensación anual convertida a USD a partir de `CompTotal` y `Currency` | Variable resultado. Se analizan valores positivos y no nulos; se puede modelar su logaritmo por la asimetría de los ingresos. |
-| `Country` | QID20. Dónde vive | Predictor principal; se recodifica como `América Latina` o `resto del mundo`. |
-| `EdLevel` | QID9. Máximo nivel de educación formal | Variable de ajuste; permite considerar diferencias en educación. |
-| `YearsCode` | QID13. Años programando en total, incluida la formación | Variable de ajuste; permite considerar diferencias en trayectoria de programación. |
-| `MainBranch` | QID3. Si escribe código y en qué condición | Filtro: retener `I am a developer by profession`. |
-| `Employment` | QID7. Situación laboral | Filtro: retener `Employed` e `Independent contractor, freelancer, or self-employed`. |
+| `Country`             | QID20. Dónde vive                                                        | Predictor principal; se recodifica como `América Latina` o `resto del mundo`.                                                 |
+| `EdLevel`             | QID9. Máximo nivel de educación formal                                   | Variable de ajuste; permite considerar diferencias en educación.                                                              |
+| `YearsCode`           | QID13. Años programando en total, incluida la formación                  | Variable de ajuste; permite considerar diferencias en trayectoria de programación.                                            |
+| `MainBranch`          | QID3. Si escribe código y en qué condición                               | Filtro: retener `I am a developer by profession`.                                                                             |
+| `Employment`          | QID7. Situación laboral                                                  | Filtro: retener `Employed` e `Independent contractor, freelancer, or self-employed`.                                          |
+
 
 Población: respuestas con valores válidos en las variables de análisis y que cumplen ambos filtros. La tabulación previa estima 19.399 casos completos: 1.192 de América Latina y 18.207 del resto del mundo.
 
