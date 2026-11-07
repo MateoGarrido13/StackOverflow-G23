@@ -348,31 +348,29 @@ El umbral de 2 es una definición operativa de “marcada dispersión”, no un 
 
 ---
 
-### 2. Uso de herramientas de IA y percepción de amenaza laboral
+### 2. Tamaño del empleador y modalidad de trabajo
 
-Entre desarrolladores de profesión empleados o independientes que respondieron ambas preguntas, la frecuencia de uso de herramientas de IA en el proceso de desarrollo se asocia con la percepción de si la IA representa una amenaza para su empleo actual. Es una hipótesis bivariada: relaciona dos respuestas categóricas sin incluir salario, país, educación u otras variables como explicaciones adicionales.
+Entre quienes respondieron ambas preguntas, el tamaño de la organización en la que trabajan (`OrgSize`) se asocia con su modalidad de trabajo (`RemoteWork`). La hipótesis es bivariada: estudia la relación entre dos variables categóricas sin incorporar otras variables como explicaciones adicionales.
 
-La pregunta tiene interés social porque relaciona la adopción cotidiana de IA con la preocupación por la seguridad laboral ante cambios tecnológicos. No se presupone que usar más IA aumente o reduzca esa preocupación: la asociación puede ir en cualquier dirección, y la encuesta no permite concluir que el uso cause una percepción particular.
+La pregunta tiene interés social porque la flexibilidad para trabajar de forma remota puede variar según la estructura del empleador y las condiciones organizacionales. Se quiere evaluar si la distribución de modalidades —presencial, remota, híbrida o flexible— cambia entre organizaciones de distinto tamaño. No se plantea que el tamaño cause una modalidad determinada: la encuesta es observacional y solo permite analizar asociación.
 
-`AISelect` distingue el uso diario, semanal o mensual/infrecuente, además de dos respuestas de no uso: no usarla pero planear hacerlo y no usarla ni planearlo. `AIThreat` pregunta directamente si la persona considera que la IA es una amenaza para su empleo actual y ofrece las respuestas `Yes`, `No` e `I'm not sure`. Se mantienen estas categorías originales, incluida la incertidumbre.
+`OrgSize` pregunta cuántas personas trabajan en la organización; sus respuestas incluyen los rangos de tamaño, la opción de trabajar por cuenta propia y “I don’t know”. `RemoteWork` describe la situación de trabajo actual y distingue trabajo remoto, presencial, dos modalidades híbridas y una modalidad de elección muy flexible. Se conservan las categorías originales para no imponer agrupaciones a priori.
 
 #### Variables
 
 | Variable | Pregunta | Uso |
 | --- | --- | --- |
-| `AISelect` | QID78. Si usa herramientas de IA en su proceso de desarrollo y con qué frecuencia | Primera variable de la asociación; frecuencia de uso y postura de quienes no las usan. |
-| `AIThreat` | QID28. Si la IA representa una amenaza para su empleo actual | Segunda variable de la asociación; percepción de amenaza laboral: `Yes`, `No` o `I'm not sure`. |
-| `MainBranch` | QID3. Si escribe código y en qué condición | Filtro: retener `I am a developer by profession`. |
-| `Employment` | QID7. Situación laboral | Filtro: retener `Employed` e `Independent contractor, freelancer, or self-employed`. |
+| `OrgSize` | QID16. Tamaño del empleador | Primera variable de la asociación; tamaño declarado de la organización, incluida la categoría de trabajador independiente. |
+| `RemoteWork` | QID24. Situación actual de trabajo (remota, híbrida o presencial) | Segunda variable de la asociación; modalidad de trabajo declarada. |
 
-Población: desarrolladores de profesión empleados o independientes con respuestas en `AISelect` y `AIThreat`. La tabulación del CSV da 24.287 casos completos (49,4% de la muestra).
+Población: personas con respuestas válidas en `OrgSize` y `RemoteWork`. La tabulación del CSV da 33.728 casos completos (68,6% de la muestra).
 
 #### Hipótesis
 
-- **H0:** `AISelect` y `AIThreat` son independientes en la población analizada; no hay asociación entre la frecuencia de uso de herramientas de IA y la percepción de amenaza laboral.
-- **H1:** `AISelect` y `AIThreat` no son independientes; existe asociación entre la frecuencia de uso de herramientas de IA y la percepción de amenaza laboral.
+- **H0:** `OrgSize` y `RemoteWork` son independientes en la población analizada; la distribución de modalidades de trabajo es igual entre las categorías de tamaño del empleador.
+- **H1:** `OrgSize` y `RemoteWork` no son independientes; existe una asociación entre el tamaño del empleador y la modalidad de trabajo.
 
-Se puede evaluar con una tabla de contingencia y una prueba chi-cuadrado de independencia, informando también el tamaño de la asociación, por ejemplo V de Cramér. Si las frecuencias esperadas de algunas celdas son demasiado bajas, habrá que revisar la idoneidad de la prueba sin agrupar categorías automáticamente. Una asociación estadística no implica causalidad.
+Se puede evaluar con una tabla de contingencia y una prueba chi-cuadrado de independencia, informando también el tamaño de la asociación, por ejemplo V de Cramér. Se deben revisar las frecuencias esperadas antes de interpretar el resultado. Una asociación estadística no implica causalidad.
 
 ---
 
