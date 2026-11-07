@@ -43,6 +43,8 @@ El CSV no viene dummy-encodeado: hay textos, listas con `;` y rankings. One-hot 
 - **Decisión:** no dummyficarlas; no son independientes (si un ítem es 1, otro no puede serlo).
 - **Para (c):** dejar `JobSatPoints_*` + `NewRole` / `JobSat`. PCA o “solo el #1” pierde los *distintos* aspectos que pide la hipótesis.
 - **Si hay que achicar:** dummy “está en top 3” por ítem, o `melt` a formato largo (menos columnas conceptuales, peor para `corr()`).
+- **Resumen compacto elegido:** `JobSatTop1` … `JobSatTop5` guardan, en cinco columnas ordenadas, los sufijos de los aspectos que cada persona ubicó en esos puestos. Por ejemplo, `2`, `9`, `1`, `3`, `5` indica que el aspecto 2 quedó primero, el 9 segundo, etc. Las columnas se derivan de las 15 originales, que deben conservarse en el dataframe fuente hasta terminar esta transformación.
+- **Limitación:** este resumen descarta los puestos 6–15 y el valor exacto asignado a cada uno. Sirve para describir o contar los cinco aspectos prioritarios, pero no sustituye el ranking completo si la hipótesis (c) necesita comparar todos los aspectos. Para inferencia, conviene explotar la columna a formato largo o crear indicadores por aspecto y posición.
 
 ### 8. `AITool*` y Likert de agentes (impacto / desafíos)
 Una pregunta partida en 5 columnas; cada celda es una lista de enunciados.
@@ -107,11 +109,11 @@ Este subconjunto conserva variables para las hipótesis y agrega algunas de inte
 | 5 | `WorkExp` | Años de experiencia profesional; se relaciona con `AIAcc` en una hipótesis de cátedra. |
 | 6 | `AIAcc` | Confianza en la precisión de las respuestas de IA; se analiza junto con `WorkExp`. |
 | 7 | `NewRole` | Consideración o transición a otro rol o carrera; variable de la hipótesis de cátedra sobre cambio laboral. |
-| 8 | `JobSatPoints_2` | Posición de la autonomía como aspecto de satisfacción laboral. |
-| 9 | `JobSatPoints_11` | Posición de la paga y los beneficios como aspecto de satisfacción laboral. |
-| 10 | `JobSatPoints_7` | Posición de resolver problemas del mundo real como aspecto de satisfacción laboral. |
-| 11 | `JobSatPoints_9` | Posición de la innovación y los problemas complejos como aspecto de satisfacción laboral. |
-| 12 | `JobSatPoints_1` | Posición del control sobre la calidad de los proyectos como aspecto de satisfacción laboral. |
+| 8 | `JobSatTop1` | Identificador del aspecto que la persona ubicó en el primer puesto. |
+| 9 | `JobSatTop2` | Identificador del aspecto que ubicó en el segundo puesto. |
+| 10 | `JobSatTop3` | Identificador del aspecto que ubicó en el tercer puesto. |
+| 11 | `JobSatTop4` | Identificador del aspecto que ubicó en el cuarto puesto. |
+| 12 | `JobSatTop5` | Identificador del aspecto que ubicó en el quinto puesto. |
 | 13 | `MainBranch` | Identifica el vínculo con el desarrollo; puede usarse para definir la población de análisis. |
 | 14 | `Employment` | Situación laboral; permite filtrar empleados e independientes cuando corresponda. |
 | 15 | `OrgSize` | Tamaño del empleador; primera variable de la hipótesis bivariada sobre organización y modalidad laboral. |
@@ -125,4 +127,4 @@ Este subconjunto conserva variables para las hipótesis y agrega algunas de inte
 | 23 | `AIModelsChoice` | Indica si usó modelos de IA en herramientas o aplicaciones de desarrollo (`Yes`/`No`). |
 | 24 | `DevEnvsHaveWorkedWith` | Entornos de desarrollo y editores usados el último año; puede contener varias respuestas separadas por `;`. |
 
-Los cinco `JobSatPoints_*` fueron seleccionados por su posición promedio más alta en importancia (un número de puesto menor indica mayor importancia). **Esta reducción no conserva toda la información de la hipótesis de cátedra (c), que originalmente utiliza las 15 columnas del ranking**; si se mantiene esa hipótesis sin cambios, habrá que recuperar las otras diez columnas en el dataset destinado a ese análisis.
+Cada `JobSatTopN` almacena el sufijo de la columna original cuyo valor era N. Por ejemplo, `JobSatTop1=2`, `JobSatTop2=9`, `JobSatTop3=1`, `JobSatTop4=3`, `JobSatTop5=5` significa que esos aspectos quedaron en los cinco primeros puestos de esa persona, en ese orden. Se acepta solo un ranking completo y válido (puestos únicos del 1 al 15); para los demás casos las cinco columnas quedan nulas. Las 15 columnas originales se mantienen en `df_encuestas` para derivar el resumen y para cualquier análisis que requiera el ranking completo; el dataset reducido queda en 24 columnas.
