@@ -91,3 +91,38 @@ Núcleo que **no** recortar: `Country`, `ConvertedCompYearly` (`CompTotal`, `Cur
 * Las 'Admired','Choice' por redundancia es representado por Work, Want
 - Puedo perder atomicidad y que una sola columna preserve las dummy 
 - Es justificable determinar que debido a que no se utilizan , seran descartadas , es posible tomar un subconjunto del df para traerse los datos utiles por las preguntas que presenatn bifuraciones(subpreguntas)
+
+---
+
+## Selección actual del dataset reducido (24 variables)
+
+Este subconjunto conserva variables para las hipótesis y agrega algunas de interés laboral y tecnológico. Se mantienen los valores faltantes en esta etapa; cada análisis aplicará sus propios filtros. `ResponseId` no está incluido porque funciona como identificador de fila, no como variable de análisis.
+
+| # | Variable | Uso previsto |
+|---:|---|---|
+| 1 | `Country` | País de residencia; permite definir grupos geográficos y filtrar Argentina. |
+| 2 | `Currency` | Moneda declarada; ayuda a interpretar y verificar la compensación reportada. |
+| 3 | `CompTotal` | Compensación anual en moneda local; se usa en la limpieza y validación del salario. |
+| 4 | `ConvertedCompYearly` | Compensación anual convertida a USD; variable de ingresos para las hipótesis salariales. |
+| 5 | `WorkExp` | Años de experiencia profesional; se relaciona con `AIAcc` en una hipótesis de cátedra. |
+| 6 | `AIAcc` | Confianza en la precisión de las respuestas de IA; se analiza junto con `WorkExp`. |
+| 7 | `NewRole` | Consideración o transición a otro rol o carrera; variable de la hipótesis de cátedra sobre cambio laboral. |
+| 8 | `JobSatPoints_2` | Posición de la autonomía como aspecto de satisfacción laboral. |
+| 9 | `JobSatPoints_11` | Posición de la paga y los beneficios como aspecto de satisfacción laboral. |
+| 10 | `JobSatPoints_7` | Posición de resolver problemas del mundo real como aspecto de satisfacción laboral. |
+| 11 | `JobSatPoints_9` | Posición de la innovación y los problemas complejos como aspecto de satisfacción laboral. |
+| 12 | `JobSatPoints_1` | Posición del control sobre la calidad de los proyectos como aspecto de satisfacción laboral. |
+| 13 | `MainBranch` | Identifica el vínculo con el desarrollo; puede usarse para definir la población de análisis. |
+| 14 | `Employment` | Situación laboral; permite filtrar empleados e independientes cuando corresponda. |
+| 15 | `OrgSize` | Tamaño del empleador; primera variable de la hipótesis bivariada sobre organización y modalidad laboral. |
+| 16 | `RemoteWork` | Modalidad de trabajo; segunda variable de esa hipótesis. |
+| 17 | `EdLevel` | Nivel educativo formal; variable de ajuste para la comparación regional de ingresos. |
+| 18 | `YearsCode` | Años totales programando; variable de ajuste para la comparación regional de ingresos. |
+| 19 | `Industry` | Sector industrial o económico donde trabaja la persona. |
+| 20 | `AISent` | Postura frente a las herramientas de IA. |
+| 21 | `AIFrustration` | Problemas o frustraciones con las herramientas de IA; puede contener varias respuestas separadas por `;`. |
+| 22 | `Age` | Grupo etario, útil para describir o comparar perfiles. |
+| 23 | `AIModelsChoice` | Indica si usó modelos de IA en herramientas o aplicaciones de desarrollo (`Yes`/`No`). |
+| 24 | `DevEnvsHaveWorkedWith` | Entornos de desarrollo y editores usados el último año; puede contener varias respuestas separadas por `;`. |
+
+Los cinco `JobSatPoints_*` fueron seleccionados por su posición promedio más alta en importancia (un número de puesto menor indica mayor importancia). **Esta reducción no conserva toda la información de la hipótesis de cátedra (c), que originalmente utiliza las 15 columnas del ranking**; si se mantiene esa hipótesis sin cambios, habrá que recuperar las otras diez columnas en el dataset destinado a ese análisis.
