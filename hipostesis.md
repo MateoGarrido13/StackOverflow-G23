@@ -18,9 +18,10 @@ H0: u(salario) >=  1.149.000
 
 H1: u(salario) < 1.149.000
 
-Se emplearia un test-t si se verificase normalidad(mediante Shapiro-Wilks) , en este caso no hay otro grupo para compararr por lo tanto la homocedasticidad no sera un supuesto a chequear pero si:  
+Se emplearia un Test-T de Student si se verificase normalidad(mediante Shapiro-Wilks) , en este caso no hay otro grupo para compararr por lo tanto la homocedasticidad no sera un supuesto a chequear pero si:  
   
-* forma simetrica(?)
+* Que la variable sea cuantitativa continua y esta en escala.
+* Las observaciones/muestras de cada desarrollador son independientes
 
 - vamos a revisar valores sobre salario, construit salario mensual
 
@@ -330,6 +331,8 @@ Población: `MainBranch` = `I am a developer by profession`, `Employment` en `Em
 Entre los desarrolladores de profesión empleados o independientes que informan su compensación anual, el percentil 90 de los ingresos convertidos a dólares es más del doble de la mediana. Esta hipótesis describe la dispersión de los ingresos dentro de la población encuestada; no compara grupos ni busca explicar sus causas. Se considera un análisis univariado porque la única variable cuyo comportamiento se analiza es `ConvertedCompYearly`.
 
 La medida de interés es la razón entre el percentil 90 y la mediana de `ConvertedCompYearly`. Si esta razón supera 2, el ingreso del percentil 90 es más del doble que el ingreso mediano. Se incluirán salarios positivos y no nulos, y se informarán también la mediana, el percentil 90 y la distribución para dar contexto a esa razón.
+
+La utilidad de dicho analisis es exponer las diferencias significativas y exorbitantes  de sueldos dentro de la industria, y evaluar a posteriori cuales son las tecnologias de dichos devs, analizar su seniority y caracteristicas principales.
 
 #### Variables
 
