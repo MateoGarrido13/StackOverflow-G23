@@ -2,7 +2,7 @@
 # La notebook lo descarga en data/ si no está.
 /data/
 /TPE_ESPECIAL/
-/ASSETS/
+
 /gi.env/
 /.venv/
 COPIA-BORRADOR-Grupo23-Fund_C_Datos-StackOverflow.ipynb
