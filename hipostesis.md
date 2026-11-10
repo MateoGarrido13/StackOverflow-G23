@@ -281,44 +281,6 @@ Población: `MainBranch` = `I am a developer by profession`, `Employment` en `Em
 
 ---
 
-
-
-### 4. Uso de herramientas de IA y uso de agentes
-
-Entre desarrolladores de profesión que están empleados o son contractors y responden las dos preguntas, usar herramientas de IA en el desarrollo (`AISelect`) no implica usar agentes en el trabajo (`AIAgents`). La asociación es bivariada: no entran salario, país, formación ni el resto del bloque de IA. La hipótesis 1 ya usa `AISelect` como covariable de la paga y no incluye `AIAgents`; esta sección no se mezcla con esa.
-
-La expectativa es que la frecuencia de herramientas y la de agentes estén asociadas, y que el uso de herramientas no alcance para decir que la persona usa agentes. Quien usa IA puede quedarse en copiloto o autocompletado, o declarar que no usa agentes. `AIAgents` pregunta si usa agentes en el trabajo; no separa “acelerar el workflow” de “construir sistemas multi-agente”. Esos fines están en `AIAgent_Uses` (QID86) y `AgentUsesGeneral` (QID106), que solo se contestan si ya hay agentes, y quedan fuera de este par.
-
-Población: `MainBranch` = `I am a developer by profession`, `Employment` en `Employed` o `Independent contractor, freelancer, or self-employed`, y dato en `AISelect` y `AIAgents`. Son 23.130 filas (47,0%). Quien no usa herramientas de IA igual puede responder `AIAgents`: el nulo no es un salto obligatorio de “no uso IA” a “sin dato de agentes”.
-
-#### Variables
-
-
-| Variable   | Pregunta                                                                           | No nulos       | Nulos          | Únicos |
-| ---------- | ---------------------------------------------------------------------------------- | -------------- | -------------- | ------ |
-| `AISelect` | QID78. Si usa herramientas de IA en su proceso de desarrollo, y con qué frecuencia | 33.720 (68,5%) | 15.471 (31,5%) | 5      |
-| `AIAgents` | QID85. Si usa agentes de IA en el trabajo, y con qué frecuencia                    | 31.919 (64,9%) | 17.272 (35,1%) | 6      |
-
-
-
-
-#### Filtros
-
-
-| Variable     | Pregunta                                                                                                 | No nulos       | Nulos      | Únicos |
-| ------------ | -------------------------------------------------------------------------------------------------------- | -------------- | ---------- | ------ |
-| `MainBranch` | QID3. Si escribe código y en qué condición. Se retiene `I am a developer by profession`                  | 49.191 (100%)  | 0 (0%)     | 6      |
-| `Employment` | QID7. Situación laboral. Se retienen `Employed` e `Independent contractor, freelancer, or self-employed` | 48.339 (98,3%) | 852 (1,7%) | 6 |
-
-
-`Probablemente un free-lancer tienda a adoptar agenter por no tener la estructura de una empresa para tareas de diseno, de producto,  implemntacion,etc.`
-
-#### Valores únicos
-
-`AISelect`: Yes, I use AI tools daily; Yes, I use AI tools weekly; Yes, I use AI tools monthly or infrequently; No, but I plan to soon; No, and I don't plan to.
-
-`AIAgents`: Yes, I use AI agents at work daily; Yes, I use AI agents at work weekly; Yes, I use AI agents at work monthly or infrequently; No, I use AI exclusively in copilot/autocomplete mode; No, but I plan to; No, and I don't plan to.
-
 ---
 
 
@@ -356,6 +318,12 @@ El umbral de 2 es una definición operativa de “marcada dispersión”, no un 
 
 
 
+
+
+
+
+
+
 ### 2. Tamaño del empleador y modalidad de trabajo
 
 Entre quienes respondieron ambas preguntas, el tamaño de la organización en la que trabajan (`OrgSize`) se asocia con su modalidad de trabajo (`RemoteWork`). La hipótesis es bivariada: estudia la relación entre dos variables categóricas sin incorporar otras variables como explicaciones adicionales.
@@ -381,6 +349,77 @@ Población: personas con respuestas válidas en `OrgSize` y `RemoteWork`. La tab
 - **H1:** `OrgSize` y `RemoteWork` no son independientes; existe una asociación entre el tamaño del empleador y la modalidad de trabajo.
 
 Se puede evaluar con una tabla de contingencia y una prueba chi-cuadrado de independencia, informando también el tamaño de la asociación, por ejemplo V de Cramér. Se deben revisar las frecuencias esperadas antes de interpretar el resultado. Una asociación estadística no implica causalidad.
+
+
+
+### 4. Uso de herramientas de IA y uso de agentes
+
+Entre desarrolladores de profesión que están empleados o son contractors y responden las dos preguntas, usar herramientas de IA en el desarrollo (`AISelect`) no implica usar agentes en el trabajo (`AIAgents`). La asociación es bivariada
+
+La expectativa es que la frecuencia de herramientas y la de agentes estén asociadas, y que el uso de herramientas no alcance para decir que la persona usa agentes. Quien usa IA puede quedarse en copiloto o autocompletado, o declarar que no usa agentes. `AIAgents` pregunta si usa agentes en el trabajo; no separa “acelerar el workflow” de “construir sistemas multi-agente”. Esos fines están en `AIAgent_Uses` (QID86) y `AgentUsesGeneral` (QID106), que solo se contestan si ya hay agentes, y quedan fuera de este par.
+
+Población: `MainBranch` = `I am a developer by profession`, `Employment` en `Employed` o `Independent contractor, freelancer, or self-employed`, y dato en `AISelect` y `AIAgents`. Son 23.130 filas (47,0%). Quien no usa herramientas de IA igual puede responder `AIAgents`: el nulo no es un salto obligatorio de “no uso IA” a “sin dato de agentes”.
+
+#### Variables
+
+
+| Variable   | Pregunta                                                                           | No nulos       | Nulos          | Únicos |
+| ---------- | ---------------------------------------------------------------------------------- | -------------- | -------------- | ------ |
+| `AISelect` | QID78. Si usa herramientas de IA en su proceso de desarrollo, y con qué frecuencia | 33.720 (68,5%) | 15.471 (31,5%) | 5      |
+| `AIAgents` | QID85. Si usa agentes de IA en el trabajo, y con qué frecuencia                    | 31.919 (64,9%) | 17.272 (35,1%) | 6      |
+
+
+
+
+#### Filtros
+
+
+| Variable     | Pregunta                                                                                                 | No nulos       | Nulos      | Únicos |
+| ------------ | -------------------------------------------------------------------------------------------------------- | -------------- | ---------- | ------ |
+| `MainBranch` | QID3. Si escribe código y en qué condición. Se retiene `I am a developer by profession`                  | 49.191 (100%)  | 0 (0%)     | 6      |
+| `Employment` | QID7. Situación laboral. Se retienen `Employed` e `Independent contractor, freelancer, or self-employed` | 48.339 (98,3%) | 852 (1,7%) | 6 |
+
+
+`Probablemente un free-lancer tienda a adoptar agenter por no tener la estructura de una empresa para tareas de diseno, de producto,  implemntacion,etc.`
+
+#### Valores únicos
+
+`AISelect`: Yes, I use AI tools daily; Yes, I use AI tools weekly; Yes, I use AI tools monthly or infrequently; No, but I plan to soon; No, and I don't plan to.
+
+`AIAgents`: Yes, I use AI agents at work daily; Yes, I use AI agents at work weekly; Yes, I use AI agents at work monthly or infrequently; No, I use AI exclusively in copilot/autocomplete mode; No, but I plan to; No, and I don't plan to.
+
+---
+
+### 5. Tamaño de la organización y uso de agentes
+
+Entre desarrolladores de profesión empleados o contractors que informan el tamaño de su organización y responden si usan agentes, el tamaño del empleador (`OrgSize`) se asocia con el uso de agentes de IA en el trabajo (`AIAgents`). La hipótesis es bivariada: estudia esas dos variables categóricas sin incorporar otras como explicación.
+
+La expectativa es que quien trabaja solo, o en una organización chica, declare más uso de agentes. Esa persona no sostiene la estructura ni el costo de alguien dedicado a diseño, marketing u otras tareas que un agente puede cubrir. `OrgSize` incluye el tramo de freelancer (`Just me - I am a freelancer, sole proprietor, etc.`) y los rangos de empleados, más `I don’t know`. Se conservan las categorías originales. En el CSV la columna es `OrgSize` (QID16); no hay `WorkSize`.
+
+`AIAgents` pregunta si usa agentes en el trabajo y con qué frecuencia. No dice para qué. Esos fines están en `AIAgent_Uses` (QID86) y `AgentUsesGeneral` (QID106) y quedan fuera. La encuesta es observacional: una asociación no muestra que el costo de contratar sea la causa.
+
+`AISelect` no entra al contraste. Sirve solo para mirar si los nulos de `AIAgents` se pueden imputar. Casi todos esos nulos coinciden con un nulo de `AISelect`: no hay un nivel de uso de herramientas desde el cual completarlos. La única fila con una moda clara es quien no usa herramientas y no piensa usarlas (cerca del 92% tampoco piensa usar agentes), y son menos del 1% de los casos completos. Imputarlos copiaría `AISelect` dentro de `AIAgents`. No se imputa. El contraste usa casos completos en `OrgSize` y `AIAgents`.
+
+#### Variables
+
+
+| Variable     | Pregunta                                                                           | Uso                                                                                                |
+| ------------ | ---------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `OrgSize`    | QID16. Cuántas personas emplea la organización, incluido el tramo de freelancer   | Primera variable de la asociación. Se conservan las nueve categorías.                              |
+| `AIAgents`   | QID85. Si usa agentes de IA en el trabajo, y con qué frecuencia                    | Segunda variable de la asociación. La categoría de copiloto es un modo de uso, no una frecuencia.  |
+| `AISelect`   | QID78. Si usa herramientas de IA en su proceso de desarrollo, y con qué frecuencia | Auxiliar para evaluar nulos de `AIAgents`. No entra al chi-cuadrado.                               |
+| `MainBranch` | QID3. Si escribe código y en qué condición                                         | Filtro: `I am a developer by profession`.                                                          |
+| `Employment` | QID7. Situación laboral                                                            | Filtro: `Employed` e `Independent contractor, freelancer, or self-employed`.                       |
+
+
+Población: quienes cumplen los dos filtros y tienen dato en `OrgSize` y `AIAgents`. La tabulación da 20.845 casos (42,4% de la muestra).
+
+#### Hipótesis
+
+- **H0:** `OrgSize` y `AIAgents` son independientes en esa población. La distribución del uso de agentes es la misma en todos los tamaños de organización.
+- **H1:** no son independientes. El perfil de `AIAgents` cambia según `OrgSize`.
+
+El chi-cuadrado de independencia no mide la dirección. La expectativa de mayor uso en organizaciones chicas se lee en el porcentaje de cada fila que declara agentes. Se informa también la V de Cramér y se revisan las frecuencias esperadas. Con esta cantidad de filas, un *p* chico puede aparecer con una asociación débil.
 
 ---
 
@@ -413,6 +452,3 @@ Población: respuestas con valores válidos en las variables de análisis y que 
 - **H1:** al considerar `EdLevel` y `YearsCode`, sí hay asociación entre la región de residencia y `ConvertedCompYearly`; el coeficiente de `Country` en el modelo es distinto de 0.
 
 Puede evaluarse con una regresión del logaritmo de `ConvertedCompYearly`, usando la región como predictor principal y `EdLevel` y `YearsCode` como variables de ajuste. La conversión a USD no ajusta por costo de vida ni poder adquisitivo; esta limitación debe tenerse en cuenta al interpretar la comparación entre regiones.
-
-
-### Cantidad de 
