@@ -413,3 +413,6 @@ Población: respuestas con valores válidos en las variables de análisis y que 
 - **H1:** al considerar `EdLevel` y `YearsCode`, sí hay asociación entre la región de residencia y `ConvertedCompYearly`; el coeficiente de `Country` en el modelo es distinto de 0.
 
 Puede evaluarse con una regresión del logaritmo de `ConvertedCompYearly`, usando la región como predictor principal y `EdLevel` y `YearsCode` como variables de ajuste. La conversión a USD no ajusta por costo de vida ni poder adquisitivo; esta limitación debe tenerse en cuenta al interpretar la comparación entre regiones.
+
+
+### Cantidad de 
