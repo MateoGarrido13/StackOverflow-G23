@@ -359,11 +359,3 @@ Tampoco se publica el consentimiento del screening.
 | `ConvertedCompYearly` | `CompTotal` convertido a USD usando `Currency` |
 
 ---
-
-## Fuentes
-
-- Cuestionario: `ASSETS/2025_Developer_Survey_Tool.pdf`
-- Codebook: `data/esquema_stack_overflow.csv`
-- Resultados: `data/stackOverflow_survey_2025_results_public.csv`
-- Informe oficial: <https://survey.stackoverflow.co/2025/>
-- Archivo histórico: <https://github.com/StackExchange/Survey>

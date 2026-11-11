@@ -53,11 +53,11 @@ Una pregunta partida en 5 columnas; cada celda es una lista de enunciados.
 - **Para (b)** (experiencia vs `AIAcc`) **no hacen falta**.
 - **Si se usan:** pivotar a 1 ordinal por tarea, no 5×N dummies.
 
-### 9. Tools de agentes (`AIAgentKnowledge`, orchestration, observe, external + writes). Se usa p/hipotesis(?) 
+### 9 Descarte de herramientas específicas de agentes
 - **Decisión:** tirarlas salvo hipótesis de stack de agentes.
 - **Por qué:** skip del PDF (solo si usan agentes). 83–99% nulos; 0% llenas si no dijeron “Yes”. Imputar sería inventar un “no usa X”.
 
-### 10. `OpSysPersonal use` / `OpSysProfessional use` Hay hipotesis de SO(?)
+### 10 Descarte de sistemas operativos
 - **Decisión:** tirarlas si no hay hipótesis de SO.
 - **Por qué:** dos facetas de una matrix; no son dummies una de la otra.
 
