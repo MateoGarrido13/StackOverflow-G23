@@ -17,29 +17,16 @@ Integrantes: Fredes Rafael, Pezzati Tomas y Garrido Mateo.
 
 ## Cómo ejecutarlo
 
-Python 3.14. Desde la carpeta de la notebook:
+Python 3.14. Desde la raíz del repositorio:
 
 ```bash
-python3.14 -m venv .venv
-source .venv/bin/activate
-python -m pip install --upgrade pip
-python -m pip install \
-  ipykernel==7.4.0 \
-  matplotlib==3.11.2 \
-  numpy==2.5.3 \
-  pandas==3.0.6 \
-  scikit-learn==1.9.1 \
-  scipy==1.18.1 \
-  seaborn==0.13.2 \
-  wget==3.2 \
-  yellowbrick==1.5
-python -m ipykernel install --user --name TPE_ESPECIAL --display-name "TPE_ESPECIAL"
+bash setup.sh
 ```
 
-En Windows, la activación es `.venv\Scripts\activate`.
+El script crea `.venv`, instala los paquetes de `requirements.md` y registra el kernel `tpe_especial`. En Windows, Git Bash puede ejecutar el mismo comando si `python3.14` está en el PATH.
 
-1. Abrir la notebook y elegir el kernel `TPE_ESPECIAL`.
-2. Ejecutar desde la primera celda. Si faltan los CSV en `data/`, esa celda los descarga del archivo 2025 de Stack Overflow.
+1. Abrir la notebook. Ya apunta al kernel `tpe_especial`, que se muestra como `TPE_ESPECIAL`. Si el script terminó bien, el editor lo toma solo.
+2. Ejecutar desde la primera celda. Si faltan los CSV, esa celda crea `data/` y guarda `data/stackOverflow_survey_2025_results_public.csv` y `data/esquema_stack_overflow.csv`.
 
 
 

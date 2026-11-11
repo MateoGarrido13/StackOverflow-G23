@@ -9,7 +9,7 @@ Lista para reconstruir el entorno con el que se ejecuta `Grupo23-Fund_C_Datos-St
 
 ## Crear el entorno
 
-Desde la raíz del repositorio:
+Desde la raíz del repositorio, `bash setup.sh` ejecuta estos comandos:
 
 ```bash
 python3.14 -m venv .venv
@@ -24,9 +24,12 @@ python -m pip install \
   scipy==1.18.1 \
   seaborn==0.13.2 \
   wget==3.2 \
-  yellowbrick==1.5
-python -m ipykernel install --user --name TPE_ESPECIAL --display-name "TPE_ESPECIAL"
+  yellowbrick==1.5 \
+  setuptools==84.2.1
+python -m ipykernel install --user --name tpe_especial --display-name "TPE_ESPECIAL"
 ```
+
+Ese id es el que ya trae la notebook. Jupyter lo guarda en minúsculas y lo muestra como `TPE_ESPECIAL`. Al abrirla, el editor lo toma y no pide elegir otro entorno.
 
 En Windows, la activación es `.venv\Scripts\activate`.
 
@@ -40,9 +43,10 @@ En Windows, la activación es `.venv\Scripts\activate`.
 | `seaborn` | 0.13.2 | Gráficos estadísticos. |
 | `scipy` | 1.18.1 | Contrastes: Shapiro-Wilk, Wilcoxon, Levene, Kruskal-Wallis y chi-cuadrado. |
 | `scikit-learn` | 1.9.1 | Regresión logística, PCA, K-means y métricas. |
-| `yellowbrick` | 1.5 | Visualización de PCA. |
+| `yellowbrick` | 1.5 | Visualización de PCA. En Python 3.14 necesita `setuptools` porque todavía importa `distutils`. |
+| `setuptools` | 84.2.1 | Aporta `distutils`, que `yellowbrick` 1.5 importa y Python 3.14 ya no trae. |
 | `wget` | 3.2 | Descarga de resultados y esquema si faltan en `data/`. |
-| `ipykernel` | 7.4.0 | Kernel `TPE_ESPECIAL` para abrir la notebook. |
+| `ipykernel` | 7.4.0 | Registra el kernel `tpe_especial`, que es el que usa la notebook. |
 
 `os` y `pathlib` vienen con Python. No hace falta instalarlos.
 
@@ -56,4 +60,4 @@ python -c "import numpy, pandas, matplotlib, scipy, seaborn, sklearn, yellowbric
 
 Si ese comando termina sin salida, el entorno puede ejecutar la notebook.
 
-El entorno queda fuera del repositorio: `.venv/` y `TPE_ESPECIAL/` están en `.gitignore`. Esta lista es la que lo vuelve a construir.
+El entorno queda fuera del repositorio: `.venv/` está en `.gitignore`. `bash setup.sh` lo vuelve a construir con esta lista.
